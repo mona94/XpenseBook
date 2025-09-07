@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_primary">#ad5389</color>
+    <color name="color_primary_dark">#871B5C</color>
+    <color name="color_secondary">#E246A4</color>
+    <color name="color_tertiary">#E484BD</color>
+    <color name="color_tertiary_light">#F2BEDD</color>
+    <color name="color_tertiary_very_light">#FDE6F4</color>
+    <color name="accent_primary">#3c1053</color>
+    <color name="accent_light">#9A6FB1</color>
+    <color name="accent_very_light">#F4E6FB</color>
+
+    <color name="gray_600">#757575</color>
+
+    <!-- Card Backgrounds -->
+    <color name="card_background">#FFFFFF</color>
+    <color name="card_background_secondary">#FEFEFE</color>
+
+    <!-- Input Field Colors -->
+    <color name="input_background">#F5FBF8</color>
+    <color name="stroke_gradient_start">#4A90E2</color>
+    <color name="stroke_gradient_middle">#5A98E6</color>
+    <color name="stroke_gradient_end">#6BA3EB</color>
+
+
+    <!-- Background Colors -->
+    <color name="gradient_start">#ad5389</color>
+    <color name="gradient_end">#3c1053</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#2D3748</color>
+    <color name="text_secondary">#4A5568</color>
+    <color name="text_hint">#A0AEC0</color>
+
+    <!-- Interactive Colors -->
+    <color name="ripple_color">#1A4A90E2</color>
+
+    <!-- Standard Colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="income_green">#4FC11E</color>
+    <color name="expenses_red">#B00020</color>
+    <color name="tab_indicator">#FAFABF</color>            <!-- Standard Material Red -->
+</resources>
