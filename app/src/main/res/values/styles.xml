@@ -8,4 +8,6 @@
     <style name="Widget.XpensesBookProject.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body1</item>
     </style>
+
+
 </resources>

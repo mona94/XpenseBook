@@ -15,8 +15,11 @@ interface TransactionDao {
     @Query("SELECT * FROM transactions ORDER BY date DESC")
     fun getAllTransactions(): Flow<List<Transaction>>
 
-    @Query("SELECT * FROM transactions WHERE type = :type ORDER BY date DESC")
-    fun getTransactionsByType(type: TransactionType): Flow<List<Transaction>>
+    @Query("SELECT * FROM transactions WHERE date BETWEEN :start AND :end ORDER BY date DESC")
+    fun getTransactionsForMonth(start: Long, end: Long): Flow<List<Transaction>>
+
+    @Query("SELECT * FROM transactions WHERE type = :type AND date BETWEEN :start AND :end  ORDER BY date DESC")
+    fun getTransactionsByType(type: TransactionType,start: Long, end: Long): Flow<List<Transaction>>
 
     @Query("SELECT SUM(amount) FROM transactions WHERE type = :type")
     suspend fun getTotalByType(type: TransactionType): Double?

@@ -1,6 +1,7 @@
 package com.money.xpensesbookproject.ui.transactions
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -16,7 +17,8 @@ import java.util.Locale
 
 class TransactionAdapter(
     private val onItemClick: (Transaction) -> Unit,
-    private val onDeleteClick: (Transaction) -> Unit
+    private val onDeleteClick: (Transaction) -> Unit,
+    private val showDeleteButton: Boolean = true
 ) : ListAdapter<Transaction, TransactionAdapter.TransactionViewHolder>(TransactionDiffCallback()) {
 
     override fun onCreateViewHolder(
@@ -45,12 +47,12 @@ class TransactionAdapter(
         private val currencyFormatter = NumberFormat.getCurrencyInstance()
 
         init {
-            binding.root.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    onItemClick(getItem(position))
-                }
-            }
+//            binding.root.setOnClickListener {
+//                val position = adapterPosition
+//                if (position != RecyclerView.NO_POSITION) {
+//                    onItemClick(getItem(position))
+//                }
+//            }
             binding.btnDelete.setOnClickListener {
                 val position = adapterPosition
                 if (position!= RecyclerView.NO_POSITION){
@@ -82,6 +84,9 @@ class TransactionAdapter(
                         }
                     )
                 )
+
+                // 👇 Control delete button visibility
+                btnDelete.visibility = if (showDeleteButton) View.VISIBLE else View.GONE
             }
         }
     }

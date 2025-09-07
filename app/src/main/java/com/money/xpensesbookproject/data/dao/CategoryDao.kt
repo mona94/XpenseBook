@@ -8,6 +8,7 @@ import androidx.room.Query
 import androidx.room.Update
 import com.money.xpensesbookproject.data.model.Category
 import com.money.xpensesbookproject.data.model.CategoryTotal
+import com.money.xpensesbookproject.data.model.Transaction
 import com.money.xpensesbookproject.data.model.TransactionType
 import kotlinx.coroutines.flow.Flow
 
@@ -16,6 +17,7 @@ interface CategoryDao {
 
     @Query("SELECT * FROM categories")
     fun getAllCategories(): Flow<List<Category>>
+
 
     @Query("SELECT * FROM categories WHERE type = :type")
     fun getCategoriesByType(type: TransactionType): Flow<List<Category>>

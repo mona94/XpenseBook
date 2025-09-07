@@ -38,7 +38,7 @@ class TransactionsViewModel(
     val transactions = _transactionFilter
         .flatMapLatest { filter ->
             when (filter) {
-                TransactionFilter.ALL -> repository.allTransactions
+                TransactionFilter.ALL -> repository.monthlyTransactions
                 TransactionFilter.INCOME -> repository.getTransactionsByType(TransactionType.INCOME)
                 TransactionFilter.EXPENSE -> repository.getTransactionsByType(TransactionType.EXPENSE)
             }

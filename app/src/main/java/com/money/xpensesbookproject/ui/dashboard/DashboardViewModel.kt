@@ -27,13 +27,13 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
         AppDatabase.getDatabase(application).categoryDao()
     )
 
-    private val incomeTotalFlow = repository.allTransactions
+    private val incomeTotalFlow = repository.monthlyTransactions
         .map { transactions ->
             transactions.filter { it.type == TransactionType.INCOME }
                 .sumOf { it.amount }
         }
 
-    private val expensesTotalFlow = repository.allTransactions
+    private val expensesTotalFlow = repository.monthlyTransactions
         .map { transactions ->
             transactions.filter { it.type == TransactionType.EXPENSE }
                 .sumOf { it.amount }
