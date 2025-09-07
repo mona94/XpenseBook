@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.money.xpensesbookproject.data.database.AppDatabase
+import com.money.xpensesbookproject.data.model.Category
 import com.money.xpensesbookproject.data.model.TransactionType
 import com.money.xpensesbookproject.data.repository.FinanceRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -15,7 +16,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class CategoryViewModel(
-        application: Application
+    application: Application
 ) : AndroidViewModel(application) {
 
     // Initialize repository first
@@ -44,6 +45,12 @@ class CategoryViewModel(
 
     fun setCategoryFilter(filter: TransactionType) {
         _typeFilter.value = filter
+    }
+
+    fun deleteCategory(category: Category) {
+        viewModelScope.launch {
+            repository.deleteCategory(category)
+        }
     }
 
 

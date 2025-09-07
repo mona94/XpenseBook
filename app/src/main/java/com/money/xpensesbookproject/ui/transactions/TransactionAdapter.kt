@@ -51,6 +51,12 @@ class TransactionAdapter(
                     onItemClick(getItem(position))
                 }
             }
+            binding.btnDelete.setOnClickListener {
+                val position = adapterPosition
+                if (position!= RecyclerView.NO_POSITION){
+                    onDeleteClick(getItem(position))
+                }
+            }
 
         }
 

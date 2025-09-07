@@ -44,7 +44,7 @@ class CategoryAdapter(
         private val currencyFormatter = NumberFormat.getCurrencyInstance()
 
         init {
-            binding.root.setOnClickListener {
+            binding.imgDelete.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     onItemClick(getItem(position))

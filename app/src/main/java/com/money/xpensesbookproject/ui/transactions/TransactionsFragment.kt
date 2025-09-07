@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
 import com.money.xpensesbookproject.data.model.Transaction
 import com.money.xpensesbookproject.data.model.TransactionFilter
@@ -80,7 +81,7 @@ class TransactionsFragment : Fragment() {
                 showTransactionDetails(transaction)
             },
             onDeleteClick = { transaction ->
-                viewModel.deleteTransaction(transaction)
+                deleteTransaction(transaction)
             }
         )
         binding.lytRecyclerView.apply {
@@ -90,6 +91,20 @@ class TransactionsFragment : Fragment() {
 //                DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
 //            )
         }
+    }
+
+    private fun deleteTransaction(transaction: Transaction) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Delete Transaction")
+            .setMessage("Are you sure you want to delete transaction amount  Rs.${transaction.amount}?")
+            .setPositiveButton("Delete") { _, _ ->
+                // User confirmed → delete
+                viewModel.deleteTransaction(transaction)
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun showTransactionDetails(transaction: Transaction) {

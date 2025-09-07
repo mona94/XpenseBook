@@ -53,7 +53,7 @@ class CategoryFragment : Fragment() {
     fun setupRecyclerView() {
         categoryAdapter = CategoryAdapter(
             onItemClick = { category ->
-                updateCategoryDetails(category)
+                deleteCategoryDetail(category)
             }
         )
         binding.rvCategories.apply {
@@ -73,8 +73,8 @@ class CategoryFragment : Fragment() {
         }
     }
 
-    private fun updateCategoryDetails(category: Category) {
-
+    fun deleteCategoryDetail(category: Category) {
+        viewModel.deleteCategory(category)
     }
 
     private fun setupTabLayout() {
@@ -98,7 +98,7 @@ class CategoryFragment : Fragment() {
 
     private fun setupButton() {
         binding.btnAddCategory.setOnClickListener {
-            AddCategoryDialog().show(parentFragmentManager,"AddCategory")
+            AddCategoryDialog().show(parentFragmentManager, "AddCategory")
         }
     }
 }

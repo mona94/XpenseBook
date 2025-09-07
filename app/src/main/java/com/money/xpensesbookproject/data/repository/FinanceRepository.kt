@@ -41,6 +41,9 @@ class FinanceRepository(
         transactionDao.deleteTransaction(transaction)
     }
 
+    suspend fun deleteCategory(category: Category){
+        categoryDao.deleteCategory(category)
+    }
     suspend fun addCategory(category: Category) {
         categoryDao.insertCategory(category)
     }

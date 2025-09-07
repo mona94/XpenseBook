@@ -1,6 +1,7 @@
 package com.money.xpensesbookproject.data.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -30,5 +31,8 @@ interface CategoryDao {
         type: TransactionType,
         startDate: Long = 0
     ): Flow<List<CategoryTotal>>
+
+    @Delete
+    suspend fun deleteCategory(category: Category)
 
 }

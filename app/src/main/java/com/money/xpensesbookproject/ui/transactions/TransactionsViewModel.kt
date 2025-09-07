@@ -55,6 +55,7 @@ class TransactionsViewModel(
 
 
     fun deleteTransaction(transaction: Transaction) {
+
         viewModelScope.launch {
             repository.deleteTransaction(transaction)
         }
