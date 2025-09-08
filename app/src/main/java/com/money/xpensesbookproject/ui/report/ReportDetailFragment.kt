@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.compose.runtime.Composable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -18,8 +19,11 @@ import com.kal.rackmonthpicker.listener.OnCancelMonthDialogListener
 import com.money.xpensesbookproject.data.model.DashboardState
 import com.money.xpensesbookproject.databinding.FragmentReportBinding
 import com.money.xpensesbookproject.ui.transactions.TransactionAdapter
+import com.money.xpensesbookproject.utils.MonthYearPickerDialog
 import kotlinx.coroutines.launch
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
 
@@ -87,36 +91,20 @@ class ReportDetailFragment : Fragment() {
 
     private fun setupMonthButton() {
         binding.txtMon.setOnClickListener {
+          // call month picker here
             showMonthPicker()
         }
     }
 
     private fun showMonthPicker() {
-
-        RackMonthPicker(activity)
-            .setColorTheme(R.color.white)
-            .setLocale(Locale.ENGLISH)
-            .setPositiveButton(object : DateMonthDialogListener {
-                override fun onDateMonth(
-                    month: Int,
-                    startDate: Int,
-                    endDate: Int,
-                    year: Int,
-                    monthLabel: String?
-                ) {
-                    binding.txtMon.text = months[month - 1]
+        MonthYearPickerDialog().apply {
+            setOnDateSelectedListener { year, month ->
+                    binding.txtMon.text = months[month]
                     binding.txtYear.text = year.toString()
-                    //here change
-                    viewModel.setMonthYear(month, year)
-                }
-            })
-            .setNegativeButton(object : OnCancelMonthDialogListener {
-                override fun onCancel(dialog: AlertDialog?) {
-
-                }
-            }).show()
+                viewModel.setMonthYear(month+1, year)
+            }
+        }.show(childFragmentManager, MonthYearPickerDialog.TAG)
     }
-
     private fun observeDashboardState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.dashboardState.collect { state: DashboardState ->

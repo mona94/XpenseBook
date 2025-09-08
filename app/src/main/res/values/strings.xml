@@ -52,5 +52,6 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_transaction">Transaction</string>
     <string name="title_report">Report</string>
+    <string name="balance">Balance</string>
 
 </resources>

@@ -24,10 +24,11 @@ interface TransactionDao {
     @Query("SELECT SUM(amount) FROM transactions WHERE type = :type")
     suspend fun getTotalByType(type: TransactionType): Double?
 
-    @Query("SELECT category as categoryName,SUM(amount) as totalAmount FROM transactions WHERE type = :type  AND date >= :startDate GROUP BY category")
+    @Query("SELECT category as categoryName,SUM(amount) as totalAmount FROM transactions WHERE type = :type  AND  date BETWEEN :startDate AND :endDate  GROUP BY category")
     fun getCategoryTotal(
         type: TransactionType,
-        startDate: Long = 0
+        startDate: Long = 0,
+        endDate :Long =0
     ): Flow<List<CategoryTotal>>
 
     @Insert

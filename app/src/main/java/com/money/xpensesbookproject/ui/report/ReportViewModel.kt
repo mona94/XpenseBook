@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+
 class ReportViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: FinanceRepository = FinanceRepository(
@@ -48,27 +49,37 @@ class ReportViewModel(application: Application) : AndroidViewModel(application) 
 
     val dashboardState: StateFlow<DashboardState> =
         selectedMonthYear.flatMapLatest { (month, year) ->
-            val incomeFlow = repository.getTransactionsByTypeForMonth(TransactionType.INCOME, month, year)
-                .map { it.sumOf { txn -> txn.amount } }
+            val incomeFlow =
+                repository.getTransactionsByTypeForMonth(TransactionType.INCOME, month, year)
+                    .map { it.sumOf { txn -> txn.amount } }
 
-            val expensesFlow = repository.getTransactionsByTypeForMonth(TransactionType.EXPENSE, month, year)
-                .map { it.sumOf { txn -> txn.amount } }
+            val expensesFlow =
+                repository.getTransactionsByTypeForMonth(TransactionType.EXPENSE, month, year)
+                    .map { it.sumOf { txn -> txn.amount } }
 
-            val categoryTotalsFlow = repository.getCategoryTotals(TransactionType.EXPENSE, getMonthTimestamps(month, year).first)
-
-            combine(incomeFlow, expensesFlow, categoryTotalsFlow) { income, expenses, categoryTotals ->
+            combine(incomeFlow, expensesFlow) { income, expenses ->
                 DashboardState(
                     totalIncome = income,
                     totalExpenses = expenses,
                     balance = income - expenses,
-                    expensesCategory = categoryTotals.map { categoryTotal ->
-                        ExpenseCategoryData(
-                            category = categoryTotal.categoryName,
-                            amount = categoryTotal.totalAmount
-                        )
-                    }
                 )
             }
+//            val categoryTotalsFlow = repository.getCategoryTotals(TransactionType.EXPENSE, getMonthTimestamps(month, year).first)
+
+
+//            combine(incomeFlow, expensesFlow, categoryTotalsFlow) { income, expenses, categoryTotals ->
+//                DashboardState(
+//                    totalIncome = income,
+//                    totalExpenses = expenses,
+//                    balance = income - expenses,
+//                    expensesCategory = categoryTotals.map { categoryTotal ->
+//                        ExpenseCategoryData(
+//                            category = categoryTotal.categoryName,
+//                            amount = categoryTotal.totalAmount
+//                        )
+//                    }
+//                )
+//            }
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
@@ -89,7 +100,10 @@ class ReportViewModel(application: Application) : AndroidViewModel(application) 
         val start = calendar.timeInMillis
 
         // End of month
-        calendar.set(java.util.Calendar.DAY_OF_MONTH, calendar.getActualMaximum(java.util.Calendar.DAY_OF_MONTH))
+        calendar.set(
+            java.util.Calendar.DAY_OF_MONTH,
+            calendar.getActualMaximum(java.util.Calendar.DAY_OF_MONTH)
+        )
         calendar.set(java.util.Calendar.HOUR_OF_DAY, 23)
         calendar.set(java.util.Calendar.MINUTE, 59)
         calendar.set(java.util.Calendar.SECOND, 59)
@@ -98,7 +112,6 @@ class ReportViewModel(application: Application) : AndroidViewModel(application) 
 
         return Pair(start, end)
     }
-
 
 
 }

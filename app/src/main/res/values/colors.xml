@@ -6,9 +6,10 @@
     <color name="color_tertiary">#E484BD</color>
     <color name="color_tertiary_light">#F2BEDD</color>
     <color name="color_tertiary_very_light">#FDE6F4</color>
-    <color name="accent_primary">#3c1053</color>
+
+    <color name="accent_primary">#611489</color>
     <color name="accent_light">#9A6FB1</color>
-    <color name="accent_very_light">#F4E6FB</color>
+    <color name="accent_very_light">#edccfe</color>
 
     <color name="gray_600">#757575</color>
 

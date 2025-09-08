@@ -1,5 +1,6 @@
 package com.money.xpensesbookproject.data.repository
 
+import androidx.compose.runtime.Composable
 import com.money.xpensebook.utils.DateFormatter
 import com.money.xpensesbookproject.data.dao.CategoryDao
 import com.money.xpensesbookproject.data.dao.TransactionDao
@@ -19,7 +20,7 @@ class FinanceRepository(
     val allCategories = categoryDao.getAllCategories()
 
     val monthlyTransactions = transactionDao.getTransactionsForMonth(getStartMonth(), getMonthEnd())
-
+@Composable
     fun getStartMonth(): Long {
         val calendar = Calendar.getInstance()
 
@@ -34,6 +35,7 @@ class FinanceRepository(
         return startOfMonth
     }
 
+    @Composable
     fun getMonthEnd(): Long {
         val calendar = Calendar.getInstance()
         // End of month
@@ -58,9 +60,10 @@ class FinanceRepository(
 
     fun getCategoryTotals(
         type: TransactionType,
-        startDate: Long = 0
+        startDate: Long = 0,
+        endDate :Long =0
     ): Flow<List<CategoryTotal>> =
-        transactionDao.getCategoryTotal(type, startDate)
+        transactionDao.getCategoryTotal(type, startDate,endDate)
 
     suspend fun getTotalByType(type: TransactionType) =
         transactionDao.getTotalByType(type) ?: 0.0

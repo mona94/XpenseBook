@@ -42,7 +42,7 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
     val dashboardState: StateFlow<DashboardState> = combine(
         incomeTotalFlow,
         expensesTotalFlow,
-        repository.getCategoryTotals(TransactionType.EXPENSE)
+        repository.getCategoryTotals(TransactionType.EXPENSE,repository.getStartMonth(),repository.getMonthEnd())
     ) { income: Double, expenses: Double, categoryTotals: List<CategoryTotal> ->
         DashboardState(
             totalIncome = income,
